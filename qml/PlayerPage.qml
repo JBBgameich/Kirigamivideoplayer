@@ -150,7 +150,7 @@ Kirigami.Page {
 
 		onStopped: {
 			showControls()
-			pageStack.pop()
+			pageStack.pop
         }
 	}
 
