@@ -14,7 +14,7 @@ target.path = /usr/bin
 INSTALLS += target
 
 icon.path = /usr/share/icons/hicolor/scalable/apps/
-icon.files = icons/$${TARGET}.svg
+icon.files = data/icons/$${TARGET}.svg
 INSTALLS += icon
 
 desktopfile.path = /usr/share/applications

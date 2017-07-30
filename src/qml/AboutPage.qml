@@ -33,7 +33,7 @@ Kirigami.ScrollablePage {
 		spacing: 15
 
 		Image {
-			source: "qrc:/icons/vplayer.svg"
+			source: "qrc:/data/icons/vplayer.svg"
 			height: 128
 			width: 128
 			fillMode: Image.PreserveAspectFit

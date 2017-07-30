@@ -24,11 +24,9 @@ import org.kde.kirigami 2.0 as Kirigami
 Kirigami.GlobalDrawer {
 	title: "Video Player"
 	titleIcon: "vplayer"
+	bannerImageSource: "qrc:/data/images/banner.png"
 	
 	drawerOpen: false
-	// show open button on the left side
-// 	handleVisible: true
-	modal: true
 
 	actions: [
 		Kirigami.Action {

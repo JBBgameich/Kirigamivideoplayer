@@ -8,8 +8,9 @@
         <file>src/qml/HistoryPage.qml</file>
         <file>src/qml/main.qml</file>
         <file>src/qml/AboutPage.qml</file>
-        <file>icons/vplayer-64x64.png</file>
-        <file>icons/vplayer.svg</file>
+        <file>data/icons/vplayer-64x64.png</file>
+        <file>data/icons/vplayer.svg</file>
+        <file>data/images/banner.png</file>
         <file>src/js/db.js</file>
         <file>src/js/timeFormat.js</file>
         <file>src/js/userscript.js</file>

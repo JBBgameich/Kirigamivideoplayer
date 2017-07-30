@@ -1,7 +1,7 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Type=Application
-Name=vPlayer
+Name=LLs Video Player
 GenericName=Video Player
 Comment=A simple video player application
 Comment[de]=Eine einfache Videoplayer-Anwendung

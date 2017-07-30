@@ -34,9 +34,10 @@ int main(int argc, char** argv)
 	
 	QQmlApplicationEngine engine;
 
-	
+	QGuiApplication::setApplicationName("vplayer");
+	QGuiApplication::setApplicationDisplayName("LLs Video Player");
+
 	// QStandardPaths
-	
 	QStringList locations = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
 	Q_ASSERT(locations.size() >= 1);
 	qDebug() << locations;
