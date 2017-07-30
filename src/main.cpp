@@ -17,65 +17,49 @@
  *
  */
 
-#include <QQmlEngine>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQuickView>
 #include <QQmlContext>
-#include <QQmlComponent>
-
 #include <QStandardPaths>
-#include <QDebug>
-#include <QThread>
+#include <QtQml>
 
-#include <KDBusService>
-#include <KLocalizedString>
-
-#include <QApplication>
-#include <QCommandLineParser>
-#include <QCommandLineOption>
-
-#include <iostream>
 
 int main(int argc, char** argv)
 {
-    QApplication app(argc, argv);
-    app.setApplicationDisplayName("LLs vPlayer");
+	QGuiApplication app(argc, argv);
+	
+	// attributes
+	QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+	
+	QQmlApplicationEngine engine;
 
-    KDBusService service(KDBusService::Unique);
+	
+	// QStandardPaths
+	
+	QStringList locations = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
+	Q_ASSERT(locations.size() >= 1);
+	qDebug() << locations;
 
-    QCommandLineParser parser;
-    parser.addOption(QCommandLineOption("phone", i18n("Run the phone version of vPlayer")));
-    parser.addHelpOption();
-    parser.process(app);
+	QString videoFolder = QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
+	QString homeFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
-    if (parser.positionalArguments().size() > 1) {
-        parser.showHelp(1);
-    }
+	QQmlContext* objectContext = engine.rootContext();
+	objectContext->setContextProperty("homePath", homeFolder);
+	objectContext->setContextProperty("videoPath", videoFolder);
 
-    QStringList locations = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
-    Q_ASSERT(locations.size() >= 1);
-    qDebug() << locations;
-
-    QString videoFolder = QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
-    QString homeFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-
-    QQmlEngine engine;
-    QQmlContext* objectContext = engine.rootContext();
-    objectContext->setContextProperty("homePath", homeFolder);
-    objectContext->setContextProperty("videoPath", videoFolder);
-
-    QString path;
-    if (parser.isSet("phone") || qgetenv("PLASMA_PLATFORM") == QByteArray("phone")) {
-        path = QStandardPaths::locate(QStandardPaths::DataLocation, "main.qml");
-        //qDebug() << "[DEBUG QStandardPaths::DataLocation] : " + QStandardPaths::DataLocation; 
-        //qDebug() << "[DEBUG path] : " + path;
-    }
-    QQmlComponent component(&engine, path);
-    if (component.isError()) {
-        std::cout << component.errorString().toUtf8().constData() << std::endl;
-        Q_ASSERT(0);
-    }
-    Q_ASSERT(component.status() == QQmlComponent::Ready);
-    component.create(objectContext);
-
-    int rt = app.exec();
-    return rt;
+	// QtQuickControls2 Style
+	qputenv("QT_QUICK_CONTROLS_STYLE", "plasma");
+	
+	
+	engine.load(QUrl("qrc:/src/qml/main.qml"));
+	
+	QObject *topLevel = engine.rootObjects().value(0);
+	QQuickWindow *window = qobject_cast<QQuickWindow*>(topLevel);
+	
+	window->show();
+	
+	int retvar = app.exec();
+	
+	return retvar;
 }

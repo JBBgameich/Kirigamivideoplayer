@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=vPlayer
+GenericName=Video Player
+Comment=A simple video player application
+Comment[de]=Eine einfache Videoplayer-Anwendung
+TryExec=vplayer
+Exec=vplayer %U
+Terminal=false
+Categories=Qt;KDE;Multimedia;Video;
+Icon=vplayer

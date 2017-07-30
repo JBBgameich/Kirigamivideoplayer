@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/qml/OpenDialog.qml</file>
+        <file>src/qml/OpenUrl.qml</file>
+        <file>src/qml/PlayerPage.qml</file>
+        <file>src/qml/YoutubeSearch.qml</file>
+        <file>src/qml/GlobalDrawer.qml</file>
+        <file>src/qml/HistoryPage.qml</file>
+        <file>src/qml/main.qml</file>
+        <file>src/qml/AboutPage.qml</file>
+        <file>icons/vplayer-64x64.png</file>
+        <file>icons/vplayer.svg</file>
+        <file>src/js/db.js</file>
+        <file>src/js/timeFormat.js</file>
+        <file>src/js/userscript.js</file>
+        <file>src/js/yt.js</file>
+    </qresource>
+</RCC>

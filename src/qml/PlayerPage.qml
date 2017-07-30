@@ -22,13 +22,12 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0 as Controls
-import QtQuick.Window 2.1
 import QtMultimedia 5.7
 import org.kde.plasma.core 2.0
 import org.kde.kirigami 2.0 as Kirigami
 
-import "helper/timeFormat.js" as TimeHelper
-import "helper/db.js" as DB
+import "qrc:/src/js/timeFormat.js" as TimeHelper
+import "qrc:/src/js/db.js" as DB
 
 Kirigami.Page {
 	implicitWidth: 5000

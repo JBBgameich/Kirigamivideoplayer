@@ -25,7 +25,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Window 2.1
 import org.kde.kirigami 2.0 as Kirigami
 
-import "helper/db.js" as DB
+import "qrc:/src/js/db.js" as DB
 
 Kirigami.ApplicationWindow {
 	id: mainWindow
@@ -33,7 +33,6 @@ Kirigami.ApplicationWindow {
 	height: 960
 	visible: true
 	
-	property string appIcon: "/usr/share/icons/hicolor/64x64/apps/vplayer.png" //TODO: use xdg somehow
 	property string appName: "LLs vPlayer"
 	property string version: "0.2"
 	property alias historyModel: historyModel

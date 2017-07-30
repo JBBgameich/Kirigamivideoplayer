@@ -26,7 +26,7 @@ import QtMultimedia 5.0
 
 import org.kde.kirigami 2.0 as Kirigami
 
-import "helper/yt.js" as YT
+import "qrc:/src/js/yt.js" as YT
 
 Kirigami.ScrollablePage {
 	leftPadding: 0
@@ -51,7 +51,7 @@ Kirigami.ScrollablePage {
 		focus: true
 
 		experimental.userAgent: uA
-		experimental.userScripts: [Qt.resolvedUrl("helper/userscript.js")]
+		experimental.userScripts: "qrc:///helper/userscript.js"
 
 		onNavigationRequested: {
 			//console.debug("[SecondPage.qml] Request navigation to " + request.url)

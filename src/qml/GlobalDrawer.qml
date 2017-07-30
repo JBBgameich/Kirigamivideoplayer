@@ -27,7 +27,7 @@ Kirigami.GlobalDrawer {
 	
 	drawerOpen: false
 	// show open button on the left side
-	handleVisible: true
+// 	handleVisible: true
 	modal: true
 
 	actions: [

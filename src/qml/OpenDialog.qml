@@ -27,11 +27,11 @@ import Qt.labs.folderlistmodel 2.2
 Kirigami.ScrollablePage {
 	id: page
 	title: qsTr("Open File")
-	
+
 	function openFile(path) {
 		mainWindow.loadPlayer("",path);
 	}
-	
+
 	actions {
 		main: Kirigami.Action {
 			id: parentFolderButton
@@ -44,17 +44,17 @@ Kirigami.ScrollablePage {
 			Kirigami.Action {
 				text: qsTr("Go to file system root")
 				iconName: "folder-red"
-				onTriggered: fileModel.folder = "/"
+				onTriggered: fileModel.folder = "file:///"
 			},
 			Kirigami.Action {
 				iconName: "folder-videos"
 				text: qsTr("Show Video Folder")
-				onTriggered: fileModel.folder = videoPath                
+				onTriggered: fileModel.folder = "file://" +videoPath                
 			},
 			Kirigami.Action {
 				iconName: "user-home"
 				text: qsTr("Show Home")
-				onTriggered: fileModel.folder = homePath
+				onTriggered: fileModel.folder = "file://" + homePath
 			},
 			Kirigami.Action {
 				text: qsTr("View sounds")
@@ -68,7 +68,7 @@ Kirigami.ScrollablePage {
 			}
 		]
 	}
-	
+
 	FolderListModel {
 		id: fileModel
 		folder: videoPath
@@ -92,10 +92,9 @@ Kirigami.ScrollablePage {
 
 			onClicked: {
 				if (fileIsDir) {
-					if (fileName === "..") fileModel.folder = fileModel.parentFolder
-					else if (fileName === ".") return
-					else fileModel.folder = filePath
-				} else {
+					fileModel.folder = "file://" + filePath
+				}
+				else {
 					openFile(filePath)
 				}
 			}
