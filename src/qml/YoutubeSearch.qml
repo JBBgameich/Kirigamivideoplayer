@@ -51,7 +51,6 @@ Kirigami.ScrollablePage {
 		focus: true
 
 		experimental.userAgent: uA
-		experimental.userScripts: "qrc:///helper/userscript.js"
 
 		onNavigationRequested: {
 			//console.debug("[SecondPage.qml] Request navigation to " + request.url)
@@ -65,8 +64,9 @@ Kirigami.ScrollablePage {
 					YT.getYoutubeStream(ytID);
 					mainWindow.showPlayer();
 					ytView.reload(); // WTF why is this working with IgnoreRequest
-
-				} else { request.action = WebView.AcceptRequest; }
+			} 
+			else { 
+				request.action = WebView.AcceptRequest; }
 			}
 			else {
 				request.action = WebView.AcceptRequest;

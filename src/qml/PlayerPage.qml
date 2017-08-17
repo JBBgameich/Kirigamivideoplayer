@@ -26,6 +26,8 @@ import QtMultimedia 5.7
 import org.kde.plasma.core 2.0
 import org.kde.kirigami 2.0 as Kirigami
 
+import org.nemomobile.qtmpris 1.0
+
 import "qrc:/src/js/timeFormat.js" as TimeHelper
 import "qrc:/src/js/db.js" as DB
 
@@ -37,14 +39,20 @@ Kirigami.Page {
 	topPadding: 0
 	
 	title: {
-		if (title != "") return title
-		else if (streamTitle != "") return streamTitle
-		else return streamUrl
+		if (streamTitle != "") {
+			return streamTitle
+		}
+		else {
+			return streamUrl
+		}
 	}
+	
+	id: videoPlayerPage
 
 	Component.onCompleted: {
 		// Automaticly start playing
 		videoWindow.play();
+		mprisPlayer.song = videoPlayerPage.title
 	}
 
 	onStreamUrlChanged: {
@@ -57,9 +65,7 @@ Kirigami.Page {
 		// Don't forgt to write it to the List aswell
 		mainWindow.add2History(streamUrl,videoPlayerPage.text);
 	}
-
-	id: videoPlayerPage
-
+	
 	property string originalUrl: mainWindow.originalUrl
 	property string streamUrl: mainWindow.streamUrl
 	property bool isYtUrl: mainWindow.isYtUrl
@@ -80,12 +86,21 @@ Kirigami.Page {
 	actions {
 		main: Kirigami.Action {
 			iconName: { 
-				if (videoWindow.playbackState != MediaPlayer.PlayingState) return "media-playback-start"
-				else return "media-playback-pause"
+				if (videoWindow.playbackState != MediaPlayer.PlayingState) 
+					return "media-playback-start"
+				else 
+					return "media-playback-pause"
 			}
 			onTriggered: {
-				if (videoWindow.playbackState != MediaPlayer.PlayingState) videoWindow.play()
-				else videoWindow.pause()
+				if (videoWindow.playbackState != MediaPlayer.PlayingState) { 
+					videoWindow.play();
+					mprisPlayer.playbackStatus = Mpris.Playing;
+					mprisPlayer.song = videoPlayerPage.title
+                }
+				else {
+					videoWindow.pause();
+					mprisPlayer.playbackStatus = Mpris.Paused;
+                }
 			}
 			shortcut: "Space"
 		}
@@ -152,6 +167,43 @@ Kirigami.Page {
 			pageStack.pop
         }
 	}
+	
+	MprisPlayer {
+		id: mprisPlayer
+
+		property string artist
+		property string song
+
+		serviceName: "vplayer"
+
+		// Mpris2 Root Interface
+		identity: "Video Player"
+		supportedUriSchemes: ["file"]
+
+		// Mpris2 Player Interface
+		canControl: true
+
+		canGoNext: false
+		canGoPrevious: false
+		canPause: playbackStatus == Mpris.Playing
+		canPlay: playbackStatus != Mpris.Playing
+		canSeek: true
+
+		playbackStatus: Mpris.Stopped
+		loopStatus: Mpris.None
+		shuffle: false
+		volume: 1
+
+		onPauseRequested: message.lastMessage = "Pause requested"
+		onPlayRequested: message.lastMessage = "Play requested"
+		onPlayPauseRequested: message.lastMessage = "Play/Pause requested"
+		onStopRequested: message.lastMessage = "Stop requested"
+		onNextRequested: message.lastMessage = "Next requested"
+		onPreviousRequested: message.lastMessage = "Previous requested"
+		onSeekRequested: {
+			if (videoWindow.seekable) videoWindow.seek(value * 1000)
+		}
+	}
 
 	Kirigami.Label {
 		id: timeLineLbl
@@ -165,7 +217,7 @@ Kirigami.Page {
 		from: 1
 		width: parent.width
 		onPressedChanged: {
-				if (!pressed) {
+			if (!pressed) {
 				if (videoWindow.seekable) videoWindow.seek(value * 1000)
 			}
 		}

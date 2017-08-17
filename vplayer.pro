@@ -1,7 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick 
-#svg sql webkit multimedia
+QT += qml quick svg sql webkit multimedia
 
 SOURCES += src/main.cpp
 
@@ -20,3 +19,12 @@ INSTALLS += icon
 desktopfile.path = /usr/share/applications
 desktopfile.files = $${TARGET}.desktop
 INSTALLS += desktopfile
+
+# QtMpris
+MPRISQTLIB = mpris-qt5
+
+INCLUDEPATH += $$[QT_INSTALL_HEADERS]/MprisQt
+LIBS += -L$$[QT_INSTALL_LIBS] -l$${MPRISQTLIB}
+PKGCONFIG = dbusextended-qt5
+
+CONFIG += qt link_pkgconfig

@@ -24,6 +24,9 @@
 #include <QStandardPaths>
 #include <QtQml>
 
+#include <Mpris>
+#include <MprisPlayer>
+
 
 int main(int argc, char** argv)
 {
@@ -49,9 +52,11 @@ int main(int argc, char** argv)
 	objectContext->setContextProperty("homePath", homeFolder);
 	objectContext->setContextProperty("videoPath", videoFolder);
 
+	qmlRegisterSingletonType<Mpris>("org.nemomobile.qtmpris", 1, 0, "Mpris", Mpris::api_factory);
+	qmlRegisterType<MprisPlayer>("org.nemomobile.qtmpris", 1, 0, "MprisPlayer");
+
 	// QtQuickControls2 Style
 	qputenv("QT_QUICK_CONTROLS_STYLE", "plasma");
-	
 	
 	engine.load(QUrl("qrc:/src/qml/main.qml"));
 	

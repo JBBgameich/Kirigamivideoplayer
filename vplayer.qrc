@@ -13,7 +13,6 @@
         <file>data/images/banner.png</file>
         <file>src/js/db.js</file>
         <file>src/js/timeFormat.js</file>
-        <file>src/js/userscript.js</file>
         <file>src/js/yt.js</file>
     </qresource>
 </RCC>
