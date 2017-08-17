@@ -29,7 +29,7 @@ Kirigami.ScrollablePage {
 	title: qsTr("Open File")
 
 	function openFile(path) {
-		mainWindow.loadPlayer("",path);
+		mainWindow.loadPlayer("", path);
 	}
 
 	actions {
@@ -95,7 +95,7 @@ Kirigami.ScrollablePage {
 					fileModel.folder = "file://" + filePath
 				}
 				else {
-					openFile(filePath)
+					openFile("file://" + filePath)
 				}
 			}
 		}

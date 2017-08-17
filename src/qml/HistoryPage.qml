@@ -42,8 +42,7 @@ Kirigami.ScrollablePage {
 
 			onClicked: {
 				console.debug("Clicked " + htitle + " with url: " + hurl);
-				mainWindow.loadPlayer(htitle,hurl);
-				pageStack.pop(historyPage);
+				mainWindow.loadPlayer(htitle, hurl);
 			}
 		}
 	}
