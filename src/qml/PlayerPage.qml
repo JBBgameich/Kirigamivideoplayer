@@ -37,7 +37,7 @@ Kirigami.Page {
 	rightPadding: 0
 	bottomPadding: 0
 	topPadding: 0
-	
+
 	title: {
 		if (streamTitle != "") {
 			return streamTitle
@@ -46,7 +46,7 @@ Kirigami.Page {
 			return streamUrl
 		}
 	}
-	
+
 	id: videoPlayerPage
 
 	Component.onCompleted: {
@@ -65,7 +65,7 @@ Kirigami.Page {
 		// Don't forgt to write it to the List aswell
 		mainWindow.add2History(streamUrl,videoPlayerPage.text);
 	}
-	
+
 	property string originalUrl: mainWindow.originalUrl
 	property string streamUrl: mainWindow.streamUrl
 	property bool isYtUrl: mainWindow.isYtUrl
@@ -93,13 +93,10 @@ Kirigami.Page {
 			}
 			onTriggered: {
 				if (videoWindow.playbackState != MediaPlayer.PlayingState) { 
-					videoWindow.play();
-					mprisPlayer.playbackStatus = Mpris.Playing;
-					mprisPlayer.song = videoPlayerPage.title
+					play();
                 }
 				else {
-					videoWindow.pause();
-					mprisPlayer.playbackStatus = Mpris.Paused;
+					pause();
                 }
 			}
 			shortcut: "Space"
@@ -111,8 +108,7 @@ Kirigami.Page {
 		right: Kirigami.Action {
 			iconName: "media-playback-stop"
 			onTriggered: {
-				videoWindow.stop();
-				pageStack.pop()
+				stop();
 			}
 		}
 	}
@@ -130,6 +126,25 @@ Kirigami.Page {
 		height: width
 		visible: !videoWindow.hasVideo
 	}
+
+	// start / stop functions
+	function play() {
+		videoWindow.play();
+		mprisPlayer.playbackStatus = Mpris.Playing;
+		mprisPlayer.song = videoPlayerPage.title;
+	}
+
+	function pause() {
+		videoWindow.pause();
+		mprisPlayer.playbackStatus = Mpris.Paused;
+	}
+
+	function stop() {
+		videoWindow.stop();
+		mprisPlayer.playbackStatus = Mpris.Stopped;
+		pageStack.pop();
+	}
+
 
 	function showControls() {
 		timeLine.visible = true;
@@ -194,12 +209,9 @@ Kirigami.Page {
 		shuffle: false
 		volume: 1
 
-		onPauseRequested: message.lastMessage = "Pause requested"
-		onPlayRequested: message.lastMessage = "Play requested"
-		onPlayPauseRequested: message.lastMessage = "Play/Pause requested"
-		onStopRequested: message.lastMessage = "Stop requested"
-		onNextRequested: message.lastMessage = "Next requested"
-		onPreviousRequested: message.lastMessage = "Previous requested"
+		onPauseRequested: pause()
+		onPlayRequested: play()
+		onStopRequested: stop()
 		onSeekRequested: {
 			if (videoWindow.seekable) videoWindow.seek(value * 1000)
 		}
