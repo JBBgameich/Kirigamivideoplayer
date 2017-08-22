@@ -32,7 +32,7 @@ import "qrc:/src/js/timeFormat.js" as TimeHelper
 import "qrc:/src/js/db.js" as DB
 
 Kirigami.Page {
-	implicitWidth: 5000
+	width: 5000
 	leftPadding: 0
 	rightPadding: 0
 	bottomPadding: 0
@@ -51,8 +51,7 @@ Kirigami.Page {
 
 	Component.onCompleted: {
 		// Automaticly start playing
-		videoWindow.play();
-		mprisPlayer.song = videoPlayerPage.title
+		play();
 	}
 
 	onStreamUrlChanged: {
