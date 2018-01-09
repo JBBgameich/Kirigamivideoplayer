@@ -154,21 +154,21 @@ Kirigami.Page {
         }
 	}
 
-	Kirigami.Label {
-		id: timeLineLbl
-		text: TimeHelper.formatTime(timeLine.value) + "/" + TimeHelper.formatTime(timeLine.maximumValue)
-		anchors.bottom: videoWindow.bottom
-		anchors.right: videoWindow.right
-	}
-	
-	Controls.Slider {
-		id: timeLine
-		from: 1
-		width: parent.width
-		onPressedChanged: {
-				if (!pressed) {
-				if (videoWindow.seekable) videoWindow.seek(value * 1000)
-			}
-		}
-	}
+    footer: Row {
+        Controls.Slider {
+            id: timeLine
+            from: 1
+            width: parent.width - timeLineLbl.width
+            onPressedChanged: {
+                    if (!pressed) {
+                    if (videoWindow.seekable) videoWindow.seek(value * 1000)
+                }
+            }
+        }
+
+        Controls.Label {
+            id: timeLineLbl
+            text: TimeHelper.formatTime(timeLine.value) + "/" + TimeHelper.formatTime(timeLine.maximumValue)
+        }
+    }
 }
