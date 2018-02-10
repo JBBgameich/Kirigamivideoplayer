@@ -10,7 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_D
 # Find packages
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Qml Quick Widgets Test Sql)
 find_package(KF5 5.5 REQUIRED COMPONENTS Plasma I18n Declarative Config DBusAddons)
-find_package(KF5Kirigami REQUIRED)
+find_package(KF5Kirigami2 REQUIRED)
 
 include(FeatureSummary)
 include(ECMAddTests)
