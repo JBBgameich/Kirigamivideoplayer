@@ -29,8 +29,6 @@
 #include <KLocalizedString>
 
 #include <QApplication>
-#include <QCommandLineParser>
-#include <QCommandLineOption>
 
 #include <iostream>
 
@@ -38,17 +36,6 @@ int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
     app.setApplicationDisplayName("LLs vPlayer");
-
-    KDBusService service(KDBusService::Unique);
-
-    QCommandLineParser parser;
-    parser.addOption(QCommandLineOption("phone", i18n("Run the phone version of vPlayer")));
-    parser.addHelpOption();
-    parser.process(app);
-
-    if (parser.positionalArguments().size() > 1) {
-        parser.showHelp(1);
-    }
 
     QStringList locations = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
     Q_ASSERT(locations.size() >= 1);
@@ -62,12 +49,9 @@ int main(int argc, char** argv)
     objectContext->setContextProperty("homePath", homeFolder);
     objectContext->setContextProperty("videoPath", videoFolder);
 
-    QString path;
-    if (parser.isSet("phone") || qgetenv("PLASMA_PLATFORM") == QByteArray("phone")) {
-        path = QStandardPaths::locate(QStandardPaths::DataLocation, "main.qml");
-        //qDebug() << "[DEBUG QStandardPaths::DataLocation] : " + QStandardPaths::DataLocation; 
-        //qDebug() << "[DEBUG path] : " + path;
-    }
+    QString path = QStandardPaths::locate(QStandardPaths::DataLocation, "main.qml");
+    qDebug() << "Data path:" << path;
+
     QQmlComponent component(&engine, path);
     if (component.isError()) {
         std::cout << component.errorString().toUtf8().constData() << std::endl;
