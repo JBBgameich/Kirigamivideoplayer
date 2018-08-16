@@ -48,7 +48,7 @@ Kirigami.ScrollablePage {
 			anchors.horizontalCenter: parent.horizontalCenter
 		}
 
-		Kirigami.Label {
+		Controls.Label {
 			text: qsTr("License: ") + "LGPLv2"
 			anchors.horizontalCenter: parent.horizontalCenter
 		}
@@ -67,9 +67,10 @@ Kirigami.ScrollablePage {
 			}
 		}
 
-		Kirigami.Label {
+		Controls.Label {
 			width: aboutPage.width
 			font.bold: true
+			textFormat: Text.StyledText
 			text: qsTr("Copyright (c) 2014-2015 Leszek Lesner &lt;leszek@zevenos.com&gt;<br>Copyright (c) 2016 JBBGameich &lt;jbb.mail@gmx.de&gt;")
 			anchors.horizontalCenter: parent.horizontalCenter
 			horizontalAlignment: Text.AlignHCenter
@@ -99,7 +100,7 @@ Kirigami.ScrollablePage {
 			}
 		}
 
-		Kirigami.Label {
+		Controls.Label {
 			width: parent.width-70
 			text: qsTr("A simple videoplayer based on gstreamer.")
 			anchors.horizontalCenter: parent.horizontalCenter
