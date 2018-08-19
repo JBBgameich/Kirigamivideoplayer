@@ -22,21 +22,18 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0 as Controls
-import QtQuick.Window 2.1
 import QtMultimedia 5.7
-import org.kde.plasma.core 2.0
 import org.kde.kirigami 2.0 as Kirigami
 
 import "helper/timeFormat.js" as TimeHelper
 import "helper/db.js" as DB
 
 Kirigami.Page {
-	implicitWidth: 5000
 	leftPadding: 0
 	rightPadding: 0
 	bottomPadding: 0
 	topPadding: 0
-	
+
 	title: {
 		if (title != "") return title
 		else if (streamTitle != "") return streamTitle
@@ -108,7 +105,7 @@ Kirigami.Page {
 		color: "black"
 	}
 
-	IconItem {
+	Kirigami.Icon {
 		id: onlyAudioIcon
 		source: "audio-x-generic"
 		anchors.centerIn: parent
@@ -150,8 +147,8 @@ Kirigami.Page {
 
 		onStopped: {
 			showControls()
-			pageStack.pop()
-        }
+			pageStack.pop(pageStack.lastItem)
+		}
 	}
 
     footer: Row {
@@ -160,8 +157,10 @@ Kirigami.Page {
             from: 1
             width: parent.width - timeLineLbl.width
             onPressedChanged: {
-                    if (!pressed) {
-                    if (videoWindow.seekable) videoWindow.seek(value * 1000)
+                if (!pressed) {
+                    if (videoWindow.seekable) {
+                        videoWindow.seek(value * 1000)
+                    }
                 }
             }
         }

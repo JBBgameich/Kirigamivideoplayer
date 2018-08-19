@@ -32,7 +32,7 @@ Kirigami.ApplicationWindow {
 	width: 540
 	height: 960
 	visible: true
-	
+
 	property string appIcon: "/usr/share/icons/hicolor/64x64/apps/vplayer.png" //TODO: use xdg somehow
 	property string appName: "LLs vPlayer"
 	property string version: "0.2"
@@ -159,12 +159,13 @@ Kirigami.ApplicationWindow {
 			}
 			return;
 		}
-	}    
+	}
+
+	pageStack.initialPage: openDialogComponent
 
 	Component.onCompleted: { 
 		// Intitialize DB
 		DB.initialize();
 		DB.getHistory();
-		pageStack.push(openDialogComponent);
 	}
 }

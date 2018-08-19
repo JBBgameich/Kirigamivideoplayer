@@ -22,39 +22,46 @@
 import org.kde.kirigami 2.0 as Kirigami
 
 Kirigami.GlobalDrawer {
+	id: drawer
+
 	title: "Video Player"
 	titleIcon: "vplayer"
-	
+
 	drawerOpen: false
 	// show open button on the left side
 	handleVisible: true
 	modal: true
 
+	function switchPage(page) {
+		pageStack.clear()
+		pageStack.push(page)
+	}
+
 	actions: [
 		Kirigami.Action {
 			text: qsTr("History")
 			iconName: "view-list-icons"
-			onTriggered: pageStack.replace(historyPageComponent)
+			onTriggered: switchPage(historyPageComponent)
 		},
 		Kirigami.Action {
 			text: qsTr("Youtube Search")
 			iconName: "smtube"
-			onTriggered: pageStack.replace(youtubeSearchComponent)
+			onTriggered: switchPage(youtubeSearchComponent)
 		},
 		Kirigami.Action {
 			text: qsTr("Open File")
 			iconName: "document-open"
-			onTriggered: pageStack.replace(openDialogComponent)
+			onTriggered: switchPage(openDialogComponent)
 		},
 		Kirigami.Action {
 			text: qsTr("Open Url")
 			iconName: "applications-internet"
-			onTriggered: pageStack.replace(openUrlComponent)
+			onTriggered: switchPage(openUrlComponent)
 		},
 		Kirigami.Action {
 			text: qsTr("About Video Player")
 			iconName: "help-about"
-			onTriggered: pageStack.replace(aboutPageComponent)
+			onTriggered: switchPage(aboutPageComponent)
 		}
 	]
 }
