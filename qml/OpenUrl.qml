@@ -23,9 +23,8 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Window 2.1
-import org.kde.kirigami 2.0 as Kirigami
+import org.kde.kirigami 2.4 as Kirigami
 import Qt.labs.folderlistmodel 2.1
-import org.kde.plasma.core 2.0
 
 Kirigami.Page {
 	id: page
@@ -45,22 +44,6 @@ Kirigami.Page {
 			width: parent.width / 1.15
 			anchors.horizontalCenter: parent.horizontalCenter
 			selectByMouse: true
-
-			Controls.ToolButton {
-				height: parent.height
-				width: clearIcon. width
-				anchors.right: parent.right
-
-				visible: urlField.length > 0
-
-				IconItem {
-					id: clearIcon
-					source: "edit-clear"
-					height: parent.height
-				}
-
-				onClicked: urlField.text = "";
-			}
 		}
 
 		Controls.Button {

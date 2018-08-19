@@ -35,25 +35,28 @@ Kirigami.Page {
 	topPadding: 0
 
 	title: {
-		if (title != "") return title
-		else if (streamTitle != "") return streamTitle
-		else return streamUrl
+		if (title != "")
+			return title
+		else if (streamTitle != "")
+			return streamTitle
+		else
+			return streamUrl
 	}
 
 	Component.onCompleted: {
 		// Automaticly start playing
-		videoWindow.play();
+		videoWindow.play()
 	}
 
 	onStreamUrlChanged: {
 		// TODO: maybe youtube or other url checks
-		videoWindow.source = streamUrl;
+		videoWindow.source = streamUrl
 		// Correct Page title, this is just needed to work around a bug, maybe I've done this bad
-		videoPlayerPage.title = mainWindow.streamTitle;
+		videoPlayerPage.title = mainWindow.streamTitle
 		// Write into history database
-		DB.addHistory(streamUrl,videoPlayerPage.title);
+		DB.addHistory(streamUrl, videoPlayerPage.title)
 		// Don't forgt to write it to the List aswell
-		mainWindow.add2History(streamUrl,videoPlayerPage.text);
+		mainWindow.add2History(streamUrl, videoPlayerPage.text)
 	}
 
 	id: videoPlayerPage
@@ -74,16 +77,20 @@ Kirigami.Page {
 	property string url240p: mainWindow.url240p
 	property string ytQual: mainWindow.ytQual
 	property bool autoplay: mainWindow.autoplay
-	
+
 	actions {
 		main: Kirigami.Action {
-			iconName: { 
-				if (videoWindow.playbackState != MediaPlayer.PlayingState) return "media-playback-start"
-				else return "media-playback-pause"
+			iconName: {
+				if (videoWindow.playbackState != MediaPlayer.PlayingState)
+					return "media-playback-start"
+				else
+					return "media-playback-pause"
 			}
 			onTriggered: {
-				if (videoWindow.playbackState != MediaPlayer.PlayingState) videoWindow.play()
-				else videoWindow.pause()
+				if (videoWindow.playbackState != MediaPlayer.PlayingState)
+					videoWindow.play()
+				else
+					videoWindow.pause()
 			}
 			shortcut: "Space"
 		}
@@ -94,7 +101,7 @@ Kirigami.Page {
 		right: Kirigami.Action {
 			iconName: "media-playback-stop"
 			onTriggered: {
-				videoWindow.stop();
+				videoWindow.stop()
 				pageStack.pop()
 			}
 		}
@@ -115,23 +122,23 @@ Kirigami.Page {
 	}
 
 	function showControls() {
-		timeLine.visible = true;
-		timeLineLbl.visible = true;
-		controlsVisible = true;
+		timeLine.visible = true
+		timeLineLbl.visible = true
+		controlsVisible = true
 	}
 
 	function hideControls() {
-		timeLine.visible = false;
-		timeLineLbl.visible = false;
-		globalDrawer.drawerOpen = false;
-		applicationWindow().controlsVisible = false;
+		timeLine.visible = false
+		timeLineLbl.visible = false
+		globalDrawer.drawerOpen = false
+		applicationWindow().controlsVisible = false
 	}
 
 	function toggleControls() {
-		if (timeLine.visible && applicationWindow().controlsVisible) 
-			hideControls();
-		else if (!timeLine.visible && !applicationWindow().controlsVisible) 
-			showControls();	
+		if (timeLine.visible && applicationWindow().controlsVisible)
+			hideControls()
+		else if (!timeLine.visible && !applicationWindow().controlsVisible)
+			showControls()
 	}
 
 	Video {
@@ -151,23 +158,25 @@ Kirigami.Page {
 		}
 	}
 
-    footer: Row {
-        Controls.Slider {
-            id: timeLine
-            from: 1
-            width: parent.width - timeLineLbl.width
-            onPressedChanged: {
-                if (!pressed) {
-                    if (videoWindow.seekable) {
-                        videoWindow.seek(value * 1000)
-                    }
-                }
-            }
-        }
+	footer: Row {
+		Controls.Slider {
+			id: timeLine
+			from: 1
+			width: parent.width - timeLineLbl.width
+			onPressedChanged: {
+				if (!pressed) {
+					if (videoWindow.seekable) {
+						videoWindow.seek(value * 1000)
+					}
+				}
+			}
+		}
 
-        Controls.Label {
-            id: timeLineLbl
-            text: TimeHelper.formatTime(timeLine.value) + "/" + TimeHelper.formatTime(timeLine.maximumValue)
-        }
-    }
+		Controls.Label {
+			id: timeLineLbl
+			text: TimeHelper.formatTime(
+					  timeLine.value) + "/" + TimeHelper.formatTime(
+					  timeLine.maximumValue)
+		}
+	}
 }

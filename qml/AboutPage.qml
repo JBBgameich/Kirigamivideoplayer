@@ -44,7 +44,7 @@ Kirigami.ScrollablePage {
 		}
 
 		Kirigami.Heading {
-			text: mainWindow.appName+" v" + mainWindow.version
+			text: mainWindow.appName + " v" + mainWindow.version
 			anchors.horizontalCenter: parent.horizontalCenter
 		}
 
@@ -55,13 +55,19 @@ Kirigami.ScrollablePage {
 
 		Rectangle {
 			height: 3
-			width: parent.width-64
-				
+			width: parent.width - 64
+
 			gradient: Gradient {
-				GradientStop { position: 0.0; color: "#333333" }
-				GradientStop { position: 1.0; color: "#777777" }
+				GradientStop {
+					position: 0.0
+					color: "#333333"
+				}
+				GradientStop {
+					position: 1.0
+					color: "#777777"
+				}
 			}
-			
+
 			anchors {
 				horizontalCenter: parent.horizontalCenter
 			}
@@ -79,13 +85,19 @@ Kirigami.ScrollablePage {
 
 		Rectangle {
 			height: 3
-			width: parent.width-64
+			width: parent.width - 64
 
 			gradient: Gradient {
-				GradientStop { position: 0.0; color: "#333333" }
-				GradientStop { position: 1.0; color: "#777777" }
+				GradientStop {
+					position: 0.0
+					color: "#333333"
+				}
+				GradientStop {
+					position: 1.0
+					color: "#777777"
+				}
 			}
-			
+
 			anchors {
 				horizontalCenter: parent.horizontalCenter
 			}
@@ -96,12 +108,13 @@ Kirigami.ScrollablePage {
 			anchors.horizontalCenter: parent.horizontalCenter
 			text: qsTr("Sourcecode on Github")
 			onClicked: {
-				Qt.openUrlExternally("https://github.com/llelectronics/videoPlayer/tree/plasma");
+				Qt.openUrlExternally(
+							"https://github.com/llelectronics/videoPlayer/tree/plasma")
 			}
 		}
 
 		Controls.Label {
-			width: parent.width-70
+			width: parent.width - 70
 			text: qsTr("A simple videoplayer based on gstreamer.")
 			anchors.horizontalCenter: parent.horizontalCenter
 			horizontalAlignment: Text.AlignHCenter
