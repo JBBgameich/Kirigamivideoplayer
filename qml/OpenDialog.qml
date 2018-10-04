@@ -48,23 +48,28 @@ Kirigami.ScrollablePage {
             },
             Kirigami.Action {
                 iconName: "folder-videos"
-                text: qsTr("Show Video Folder")
+                text: qsTr("Go to video folder")
                 onTriggered: fileModel.folder = videoPath
             },
             Kirigami.Action {
                 iconName: "user-home"
-                text: qsTr("Show Home")
+                text: qsTr("Go to home folder")
                 onTriggered: fileModel.folder = homePath
             },
             Kirigami.Action {
-                text: qsTr("View sounds")
+                text: qsTr("Filter sounds")
                 iconName: "folder-sound"
                 onTriggered: fileModel.nameFilters = ["*.mp3", "*.wav", "*.ogg", "*.webm", "*.flac", "*.3ga", "*.aac", ".*.mpa", ".*.wma"]
             },
             Kirigami.Action {
-                text: qsTr("View Videos")
+                text: qsTr("Filter Videos")
                 iconName: "folder-video"
                 onTriggered: fileModel.nameFilters = ["*.mkv", "*.mp4", "*.ogv", "*.webm", "*.264", "*.avi", "*.h264", "*.wmv", "*.mpg4", "*.3gp*"]
+            },
+            Kirigami.Action {
+                text: qsTr("Reset Filter")
+                iconName: "folder-video"
+                onTriggered: fileModel.nameFilters = ["*"]
             }
         ]
     }
