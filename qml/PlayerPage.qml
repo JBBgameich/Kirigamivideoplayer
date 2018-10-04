@@ -24,6 +24,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0 as Controls
 import QtMultimedia 5.7
 import org.kde.kirigami 2.0 as Kirigami
+import org.nemomobile.mpris 1.0
 
 import "helper/timeFormat.js" as TimeHelper
 import "helper/db.js" as DB
@@ -51,8 +52,6 @@ Kirigami.Page {
 	onStreamUrlChanged: {
 		// TODO: maybe youtube or other url checks
 		videoWindow.source = streamUrl
-		// Correct Page title, this is just needed to work around a bug, maybe I've done this bad
-		videoPlayerPage.title = mainWindow.streamTitle
 		// Write into history database
 		DB.addHistory(streamUrl, videoPlayerPage.title)
 		// Don't forgt to write it to the List aswell
@@ -152,10 +151,69 @@ Kirigami.Page {
 			onClicked: toggleControls()
 		}
 
+		onPaused: {
+			mprisPlayer.playbackStatus = Mpris.Paused
+		}
+		onPlaying: {
+			mprisPlayer.playbackStatus = Mpris.Playing
+
+			var metadata = mprisPlayer.metadata
+			metadata[Mpris.metadataToString(Mpris.Title)] = videoPlayerPage.title // String
+			mprisPlayer.metadata = metadata
+		}
+
 		onStopped: {
 			showControls()
+			mprisPlayer.playbackStatus = Mpris.Stopped
 			pageStack.pop(pageStack.lastItem)
 		}
+	}
+
+	MprisPlayer {
+		id: mprisPlayer
+
+		serviceName: "llsvplayer"
+
+		// Mpris2 Root Interface
+		identity: "LLs Video Player"
+		supportedUriSchemes: ["file"]
+		supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg"]
+
+		// Mpris2 Player Interface
+		canControl: true
+
+		canGoNext: false
+		canGoPrevious: false
+		canPause: playbackStatus == Mpris.Playing
+		canPlay: playbackStatus != Mpris.Playing
+		canSeek: true
+
+		playbackStatus: Mpris.Stopped
+		loopStatus: Mpris.None
+		shuffle: false
+		volume: 1
+
+		onPauseRequested: videoWindow.pause()
+		onPlayRequested: videoWindow.play()
+		onPlayPauseRequested: {
+			if (videoWindow.playbackState != MediaPlayer.PlayingState)
+					videoWindow.play()
+				else
+					videoWindow.pause()
+		}
+		onStopRequested: {
+			videoWindow.stop()
+			pageStack.pop()
+		}
+		onSeekRequested: {
+			videoWindow.seek(offset)
+			emitSeeked()
+		}
+		onSetPositionRequested: {
+			videoWindow.position = position
+			emitSeeked()
+		}
+		onOpenUriRequested: videoWindow.source(url)
 	}
 
 	footer: Row {
