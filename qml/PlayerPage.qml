@@ -52,6 +52,8 @@ Kirigami.Page {
 	onStreamUrlChanged: {
 		// TODO: maybe youtube or other url checks
 		videoWindow.source = streamUrl
+		// Correct Page title, this is just needed to work around a bug, maybe I've done this bad
+		videoPlayerPage.title = mainWindow.streamTitle
 		// Write into history database
 		DB.addHistory(streamUrl, videoPlayerPage.title)
 		// Don't forgt to write it to the List aswell
@@ -79,6 +81,7 @@ Kirigami.Page {
 
 	actions {
 		main: Kirigami.Action {
+			text: "Play / Pause"
 			iconName: {
 				if (videoWindow.playbackState != MediaPlayer.PlayingState)
 					return "media-playback-start"
@@ -94,10 +97,12 @@ Kirigami.Page {
 			shortcut: "Space"
 		}
 		left: Kirigami.Action {
+			text: "Fullscreen"
 			iconName: "view-fullscreen"
 			onTriggered: toggleControls()
 		}
 		right: Kirigami.Action {
+			text: "Stop"
 			iconName: "media-playback-stop"
 			onTriggered: {
 				videoWindow.stop()
