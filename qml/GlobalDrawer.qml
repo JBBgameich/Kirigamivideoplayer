@@ -59,9 +59,11 @@ Kirigami.GlobalDrawer {
 			onTriggered: switchPage(openUrlComponent)
 		},
 		Kirigami.Action {
-			text: qsTr("About Video Player")
-			iconName: "help-about"
-			onTriggered: switchPage(aboutPageComponent)
+				text: qsTr("About")
+				iconName: "help-about"
+				onTriggered: {
+						aboutDialog.open();
+				}
 		}
 	]
 }

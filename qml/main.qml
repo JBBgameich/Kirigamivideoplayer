@@ -33,7 +33,7 @@ Kirigami.ApplicationWindow {
 	height: 960
 	visible: true
 
-	property string appIcon: "/usr/share/icons/hicolor/64x64/apps/vplayer.png" //TODO: use xdg somehow
+	property string appIcon: "/usr/share/icons/hicolor/scalable/apps/vplayer.svg" //TODO: use xdg somehow
 	property string appName: "LLs vPlayer"
 	property string version: "0.2"
 	property alias historyModel: historyModel
@@ -102,12 +102,18 @@ Kirigami.ApplicationWindow {
 	}
 
 	// components not needed for the drawer
-
 	Component {
 		id: playerPageComponent
 		PlayerPage {}
 	}
-	
+
+	// About Dialog
+	AboutDialog {
+		id: aboutDialog
+		focus: true
+		x: (parent.width - width) / 2
+		y: (parent.height - height) / 2
+	}
 
 	function loadPlayer(title,url) {
 		streamTitle = title

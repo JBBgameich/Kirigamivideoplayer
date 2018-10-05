@@ -1,1 +1,2 @@
-ecm_install_icons(ICONS 64-apps-vplayer.png DESTINATION ${ICON_INSTALL_DIR})
+ecm_install_icons(ICONS sc-apps-vplayer.svg
+		  DESTINATION ${ICON_INSTALL_DIR})
