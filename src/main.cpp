@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 
     QStringList locations = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
     Q_ASSERT(locations.size() >= 1);
-    qDebug() << locations;
+    qDebug() << "Standard Media Locations:" << locations;
 
     QString videoFolder = QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
     QString homeFolder = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 
     QQmlComponent component(&engine, path);
     if (component.isError()) {
-        std::cout << component.errorString().toUtf8().constData() << std::endl;
+        qDebug() << component.errorString().toUtf8().constData();
         Q_ASSERT(0);
     }
     Q_ASSERT(component.status() == QQmlComponent::Ready);
