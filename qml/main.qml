@@ -96,11 +96,6 @@ Kirigami.ApplicationWindow {
 		OpenUrl {}
 	}
 	
-	Component {
-		id: aboutPageComponent
-		AboutPage {}
-	}
-
 	// components not needed for the drawer
 	Component {
 		id: playerPageComponent
