@@ -38,7 +38,7 @@ Kirigami.ScrollablePage {
             tooltip: qsTr("go to parent folder")
             iconName: "go-parent-folder"
             onTriggered: fileModel.folder = fileModel.parentFolder
-            enabled: true
+            enabled: fileModel.folder != "file:///"
         }
         contextualActions: [
             Kirigami.Action {
