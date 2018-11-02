@@ -9,8 +9,6 @@ target_link_libraries(vplayer
     Qt5::Quick
     Qt5::Widgets
     Qt5::Qml
-    KF5::ConfigCore
-    KF5::DBusAddons
     KF5::I18n
 )
 

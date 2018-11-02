@@ -23,9 +23,7 @@
 
 #include <QStandardPaths>
 #include <QDebug>
-#include <QThread>
 
-#include <KDBusService>
 #include <KLocalizedString>
 
 #include <QApplication>
